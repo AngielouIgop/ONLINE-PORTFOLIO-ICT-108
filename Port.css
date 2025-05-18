@@ -83,6 +83,15 @@ body {
     background-color: #2980b9;
 }
 
+.footer {
+    text-align: center;
+    padding: 10px;
+}
+
+.footer p {
+    margin: 0;
+}
+
 @media (max-width: 768px) {
     body {
         padding: 10px;
@@ -95,5 +104,15 @@ body {
     .queries p {
         font-size: 0.9em;
         max-width: 100%;
+    }
+
+    .footer {
+        display: flex;
+        flex-direction: row;
+        padding: 15px;             
+    }
+
+    .footer p {
+        margin: 0;
     }
 }
