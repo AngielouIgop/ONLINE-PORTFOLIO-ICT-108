@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Port.css">
+    <title>Online Portfolio</title>
+</head>
+<body>
+    <div class="title-div">
+    <h1 class="title">B. A. S. U. R. A. REWARDS : 
+        BUILDING A SUSTAINABLE SYSTEM WITH A UNIFIED RECYCLING REWARDS APPROACH FOR AWARENESS</h1>
+    </div>
+    <div class="rationale">
+        <p>
+            The <strong>`user`</strong> table stores important information about each user such as their full name, username, password, contact details, role, and their total current points. Every time a user throws waste into the machine, the system records it in the <strong>`wasteEntry`</strong> table. This includes the type of material (like plastic, can, or glass), how many items were thrown, how many points were earned, and the exact date and time it happened.
+
+The type of material is defined in the <strong>`materialType`</strong> table. It lists the name of each recyclable material and how many points each one is worth. This helps the system calculate how much to add to the user's total points automatically.
+
+If a user wants to redeem a reward, the <strong>`reward`</strong> table lists all the available rewards, how many points are required for each, and how many are left in stock. Once a user redeems a reward, that transaction is saved in the <strong>`redemption`</strong> table, which shows what reward they claimed, how many points were used, and the specific <strong>`wasteEntry`</strong> it came from — including the date and time of the redemption.
+
+This structure ensures that every action—whether waste disposal or reward redemption—is fully tracked and recorded. It helps keep the system organized, accurate, and fair. With this, the barangay can promote responsible waste management while encouraging active community participation through a clear and rewarding process. 
+        </p>
+    </div>
+
+    <div class="objectives">
+        <p>
+            To develop a database system that will: <br>
+
+- 📌 Securely store and manage user profiles, including username, contact info, role, zone, and total current points. <br>
+- 📌 Track each waste contribution by logging the material type (plastic, glass, or can), quantity, earned points, and the exact date and time of disposal. <br>
+- 📌 Store and define material types and their corresponding point values to help compute user rewards accurately. <br>
+- 📌 Record redemption transactions by linking the redeemed reward, used points, and the related waste entry. <br>
+- 📌 Automatically update and deduct points from the user's total after every successful reward claim. <br>
+- 📌 Maintain a reward inventory,tracking how many rewards are available and how many points are needed for each. <br>
+- 📌 Allow barangay officials or admins to generate reports based on user activity, waste logs, and redemption history. <br>
+- 📌 Synchronize smoothly with the web app, so users can view their points, activity logs, and redeem rewards in real-time. <br>
+        </p>
+    </div>
+
+    <div class="architecture">
+        <img src="architecture.png" alt="architecture">
+    </div>
+
+    <div class="erd">
+        <img src="ERD.png" alt="ERD">
+    </div>
+
+    <div class="queries">
+        <p>CREATE TABLE <strong>user</strong> (<br>
+userID INT AUTO_INCREMENT PRIMARY KEY,<br>
+fullName VARCHAR(100) NOT NULL,<br>
+userName VARCHAR(50) NOT NULL UNIQUE,<br>
+password VARCHAR(255) NOT NULL,<br>
+email VARCHAR(100),<br>
+contactNum VARCHAR(20),<br>
+zone VARCHAR(50),<br>
+position VARCHAR(50),<br>
+regDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
+totalCurrentPoints INT DEFAULT 0,<br>
+role ENUM('user', 'admin') DEFAULT 'user'<br>
+);</p>
+
+        <p>CREATE TABLE <strong>materialType</strong> (<br>
+materialID INT AUTO_INCREMENT PRIMARY KEY,<br>
+materialName VARCHAR(50) NOT NULL,<br>
+description TEXT,<br>
+pointsPerItem INT NOT NULL<br>
+);</p>
+
+        <p>CREATE TABLE <strong>wasteEntry</strong> (<br>
+entryID INT AUTO_INCREMENT PRIMARY KEY,<br>
+userID INT,<br>
+materialID INT,<br>
+quantity INT NOT NULL,<br>
+pointsEarned INT NOT NULL,<br>
+dateDeposited TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
+FOREIGN KEY (userID) REFERENCES <strong>user</strong>(userID),<br>
+FOREIGN KEY (materialID) REFERENCES <strong>materialType</strong>(materialID)<br>
+);</p>
+
+        <p>CREATE TABLE <strong>reward</strong> (<br>
+rewardID INT AUTO_INCREMENT PRIMARY KEY,<br>
+rewardName VARCHAR(100) NOT NULL,<br>
+description TEXT,<br>
+pointsRequired INT NOT NULL,<br>
+availableStock INT DEFAULT 0<br>
+);</p>
+
+        <p>CREATE TABLE <strong>redemption</strong> (<br>
+redemptionID INT AUTO_INCREMENT PRIMARY KEY,<br>
+userID INT,<br>
+rewardID INT,<br>
+entryID INT,<br>
+quantity INT NOT NULL,<br>
+totalPointsUsed INT NOT NULL,<br>
+redemptionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
+FOREIGN KEY (userID) REFERENCES <strong>user</strong>(userID),<br>
+FOREIGN KEY (rewardID) REFERENCES <strong>reward</strong>(rewardID),<br>
+FOREIGN KEY (entryID) REFERENCES <strong>wasteEntry</strong>(entryID)<br>
+);</p>
+    </div>
+
+    <div class="links">
+        <a href="https://www.db-fiddle.com/f/sLp8K7KTsFUoA5AYFdAkMX/1">DB Fiddle Link</a>
+    </div>
+</body>
+</html>
