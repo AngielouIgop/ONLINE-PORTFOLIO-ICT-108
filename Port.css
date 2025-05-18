@@ -90,7 +90,13 @@ body {
 
 .footer p {
     margin: 0;
+}
+
+.label {
+    color: #2c3e50;
     text-align: center;
+    margin: 20px 0 10px 0;
+    font-size: 1.5em;
 }
 
 @media (max-width: 768px) {

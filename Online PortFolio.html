@@ -7,11 +7,16 @@
     <title>Online Portfolio</title>
 </head>
 <body>
+    <h1 class="label">Title</h1>
     <div class="title-div">
+        
     <h1 class="title">B. A. S. U. R. A. REWARDS : 
         BUILDING A SUSTAINABLE SYSTEM WITH A UNIFIED RECYCLING REWARDS APPROACH FOR AWARENESS</h1>
     </div>
+
+    <h1 class="label">Rationale</h1>
     <div class="rationale">
+        
         <p>
             The <strong>`user`</strong> table stores important information about each user such as their full name, username, password, contact details, role, and their total current points. Every time a user throws waste into the machine, the system records it in the <strong>`wasteEntry`</strong> table. This includes the type of material (like plastic, can, or glass), how many items were thrown, how many points were earned, and the exact date and time it happened.
 
@@ -23,7 +28,9 @@ This structure ensures that every action—whether waste disposal or reward rede
         </p>
     </div>
 
+    <h1 class="label">Objectives</h1>
     <div class="objectives">
+       
         <p>
             To develop a database system that will: <br>
 
@@ -38,15 +45,21 @@ This structure ensures that every action—whether waste disposal or reward rede
         </p>
     </div>
 
+    <h1 class="label">Database architecture</h1>
     <div class="architecture">
+        
         <img src="/architecture.png" alt="architecture">
     </div>
 
+    <h1 class="label">ERD</h1>
     <div class="erd">
+       
         <img src="/ERD.png" alt="ERD">
     </div>
 
+    <h1 class="label">Queries</h1>
     <div class="queries">
+       
         <p>CREATE TABLE <strong>user</strong> (<br>
 userID INT AUTO_INCREMENT PRIMARY KEY,<br>
 fullName VARCHAR(100) NOT NULL,<br>
@@ -101,6 +114,7 @@ FOREIGN KEY (entryID) REFERENCES <strong>wasteEntry</strong>(entryID)<br>
 );</p>
     </div>
 
+    <h1 class="label">Link</h1>
     <div class="links">
         <a href="https://www.db-fiddle.com/f/sLp8K7KTsFUoA5AYFdAkMX/1">DB Fiddle Link</a>
     </div>
