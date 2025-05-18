@@ -2,9 +2,17 @@
     "version": 2,
     "routes": [
         {
-        "src": "/Port.css",
-        "dest": "/Port.css"
-    },
+            "src": "/Port.css",
+            "dest": "/Port.css"
+        },
+        {
+            "src": "/architecture.png",
+            "dest": "/architecture.png"
+        },
+        {
+            "src": "/ERD.png",
+            "dest": "/ERD.png"
+        },
         {
             "src": "/(.*)",
             "dest": "/Online PortFolio.html"
