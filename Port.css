@@ -52,17 +52,30 @@ body {
     flex-wrap: wrap;
     gap: 20px;
     justify-content: space-between;
+    padding: 20px;
 }
 
-.queries p {
-    margin: 10px 0;
-    padding: 15px;
-    background-color: #fff;
-    border-radius: 5px;
-    border-left: 4px solid #2c3e50;
+.query-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     flex: 1 1 300px;
     min-width: 300px;
     max-width: calc(50% - 20px);
+    transition: transform 0.3s ease;
+    border: 1px solid #3498db;
+}
+
+.query-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    border-color: #2980b9;
+}
+
+.query-card strong {
+    color: #2c3e50;
+    font-size: 1.1em;
 }
 
 .links {
@@ -108,8 +121,7 @@ body {
         font-size: 1.4em;
     }
     
-    .queries p {
-        font-size: 0.9em;
+    .query-card {
         max-width: 100%;
     }
 

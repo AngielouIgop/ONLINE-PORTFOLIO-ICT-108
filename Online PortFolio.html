@@ -59,59 +59,71 @@ This structure ensures that every action—whether waste disposal or reward rede
 
     <h1 class="label">Queries</h1>
     <div class="queries">
-       
-        <p>CREATE TABLE <strong>user</strong> (<br>
-userID INT AUTO_INCREMENT PRIMARY KEY,<br>
-fullName VARCHAR(100) NOT NULL,<br>
-userName VARCHAR(50) NOT NULL UNIQUE,<br>
-password VARCHAR(255) NOT NULL,<br>
-email VARCHAR(100),<br>
-contactNum VARCHAR(20),<br>
-zone VARCHAR(50),<br>
-position VARCHAR(50),<br>
-regDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
-totalCurrentPoints INT DEFAULT 0,<br>
-role ENUM('user', 'admin') DEFAULT 'user'<br>
-);</p>
+        <div class="query-card">
+            <strong>OBJ 1.</strong><br><br>
+            INSERT INTO user (fullName, userName, password, email, contactNum, zone, position, regDate, totalCurrentPoints, role)
+            VALUES ('Angielou Sujede', 'angielou', 'hashed_password', 'angie@example.com', '09123456789', 'Zone 1', 'Resident', CURDATE(), 0, 'user');
+        </div>
 
-        <p>CREATE TABLE <strong>materialType</strong> (<br>
-materialID INT AUTO_INCREMENT PRIMARY KEY,<br>
-materialName VARCHAR(50) NOT NULL,<br>
-description TEXT,<br>
-pointsPerItem INT NOT NULL<br>
-);</p>
+        <div class="query-card">
+            <strong>OBJ 2.</strong><br><br>
+            INSERT INTO wasteEntry (userID, materialID, quantity, pointsEarned, dateDeposited, timeDeposited)
+            VALUES (1, 1, 3, 6, CURDATE(), CURTIME());<br><br>
 
-        <p>CREATE TABLE <strong>wasteEntry</strong> (<br>
-entryID INT AUTO_INCREMENT PRIMARY KEY,<br>
-userID INT,<br>
-materialID INT,<br>
-quantity INT NOT NULL,<br>
-pointsEarned INT NOT NULL,<br>
-dateDeposited TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
-FOREIGN KEY (userID) REFERENCES <strong>user</strong>(userID),<br>
-FOREIGN KEY (materialID) REFERENCES <strong>materialType</strong>(materialID)<br>
-);</p>
+            UPDATE user
+            SET totalCurrentPoints = totalCurrentPoints + 6
+            WHERE userID = 1;
+        </div>
 
-        <p>CREATE TABLE <strong>reward</strong> (<br>
-rewardID INT AUTO_INCREMENT PRIMARY KEY,<br>
-rewardName VARCHAR(100) NOT NULL,<br>
-description TEXT,<br>
-pointsRequired INT NOT NULL,<br>
-availableStock INT DEFAULT 0<br>
-);</p>
+        <div class="query-card">
+            <strong>OBJ 3.</strong><br><br>
+            INSERT INTO materialType (materialName, description, pointsPerItem)
+            VALUES
+            ('Plastic Bottle', 'Lightweight plastic PET bottles', 2),
+            ('Glass Bottle', 'Recyclable glass containers', 3),
+            ('Aluminum Can', 'Used drink cans', 4);
+        </div>
 
-        <p>CREATE TABLE <strong>redemption</strong> (<br>
-redemptionID INT AUTO_INCREMENT PRIMARY KEY,<br>
-userID INT,<br>
-rewardID INT,<br>
-entryID INT,<br>
-quantity INT NOT NULL,<br>
-totalPointsUsed INT NOT NULL,<br>
-redemptionDate TIMESTAMP DEFAULT CURRENT_TIMESTAMP,<br>
-FOREIGN KEY (userID) REFERENCES <strong>user</strong>(userID),<br>
-FOREIGN KEY (rewardID) REFERENCES <strong>reward</strong>(rewardID),<br>
-FOREIGN KEY (entryID) REFERENCES <strong>wasteEntry</strong>(entryID)<br>
-);</p>
+        <div class="query-card">
+            <strong>OBJ 4.</strong><br><br>
+            INSERT INTO reward (rewardName, description, pointsRequired, availableStock)
+            VALUES
+            ('Noodles Pack', '3 pcs of noodles', 10, 50),
+            ('Canned Goods', '2 cans of sardines', 15, 30),
+            ('Milk Sachet', '5 sachets of powdered milk', 12, 40);
+        </div>
+
+        <div class="query-card">
+            <strong>OBJ 5.</strong><br><br>
+            INSERT INTO redemption (userID, rewardID, entryID, quantity, totalPointsUsed, redemptionDate, redemptionTime)
+            VALUES (1, 1, 5, 1, 10, CURDATE(), CURTIME());<br><br>
+
+            UPDATE user
+            SET totalCurrentPoints = totalCurrentPoints - 10
+            WHERE userID = 1;<br><br>
+
+            UPDATE reward
+            SET availableStock = availableStock - 1
+            WHERE rewardID = 1;
+        </div>
+
+        <div class="query-card">
+            <strong>OBJ 6.</strong><br><br>
+            SELECT u.fullName, m.materialName, w.quantity, w.pointsEarned, w.dateDeposited
+            FROM user u
+            JOIN wasteEntry w ON u.userID = w.userID
+            JOIN materialType m ON w.materialID = m.materialID
+            ORDER BY w.dateDeposited DESC;
+        </div>
+
+        <div class="query-card">
+            <strong>OBJ 7.</strong><br><br>
+            SELECT u.fullName, r.rewardName, d.quantity, d.totalPointsUsed, d.redemptionDate
+            FROM user u
+            JOIN redemption d ON u.userID = d.userID
+            JOIN reward r ON d.rewardID = r.rewardID
+            ORDER BY d.redemptionDate DESC;
+        </div>
     </div>
 
     <h1 class="label">Link</h1>
